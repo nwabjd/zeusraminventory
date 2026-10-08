@@ -1,0 +1,342 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   ZEUS design system
+   ---------------------------------------------------------------------------
+   A desktop-first token layer. Every colour, radius, shadow and type step used
+   by the app is declared in the @theme section so React components only ever
+   compose utilities - no component ships an ad-hoc colour.
+   =========================================================================== */
+
+@theme {
+  /* ---- typography ------------------------------------------------------ */
+  --font-sans: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui,
+    -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Mono", "Consolas", "SF Mono", ui-monospace, monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
+  /* ---- brand / primary (blue) ------------------------------------------ */
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dbe6fe;
+  --color-brand-200: #bfd3fe;
+  --color-brand-300: #93b4fd;
+  --color-brand-400: #608afa;
+  --color-brand-500: #3b6bf6;
+  --color-brand-600: #2551eb;
+  --color-brand-700: #1d3ed8;
+  --color-brand-800: #1e34af;
+  --color-brand-900: #1e318a;
+  --color-brand-950: #172054;
+
+  /* ---- sidebar navy ---------------------------------------------------- */
+  --color-navy-950: #060b16;
+  --color-navy-900: #0b1224;
+  --color-navy-850: #101a31;
+  --color-navy-800: #16223f;
+  --color-navy-700: #1e2d50;
+  --color-navy-600: #2a3c66;
+  --color-navy-500: #40527f;
+  --color-navy-400: #6b7c9f;
+  --color-navy-300: #97a4bf;
+  --color-navy-200: #c2cbdd;
+  --color-navy-100: #e0e5ee;
+
+  /* ---- neutrals / surfaces --------------------------------------------- */
+  --color-canvas: #f2f5f9;
+  --color-surface: #ffffff;
+  --color-line: #e3e8f0;
+  --color-line-strong: #cfd6e3;
+  --color-ink: #101828;
+  --color-muted: #5a6784;
+  --color-faint: #8c98b4;
+
+  /* ---- semantic status -------------------------------------------------- */
+  --color-profit-50: #ecfdf5;
+  --color-profit-100: #d1fae5;
+  --color-profit-500: #10b981;
+  --color-profit-600: #059669;
+  --color-profit-700: #047857;
+
+  --color-danger-50: #fef2f2;
+  --color-danger-100: #fee2e2;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+
+  --color-warn-50: #fffbeb;
+  --color-warn-100: #fef3c7;
+  --color-warn-500: #f59e0b;
+  --color-warn-600: #d97706;
+  --color-warn-700: #b45309;
+
+  --color-info-50: #ecfeff;
+  --color-info-500: #06b6d4;
+  --color-info-600: #0891b2;
+
+  /* ---- shape ------------------------------------------------------------ */
+  --radius-card: 0.75rem;
+  --radius-field: 0.5rem;
+
+  /* ---- elevation -------------------------------------------------------- */
+  --shadow-card: 0 1px 2px 0 rgb(16 24 40 / 0.05),
+    0 1px 3px 0 rgb(16 24 40 / 0.06);
+  --shadow-raised: 0 4px 10px -2px rgb(16 24 40 / 0.1),
+    0 2px 6px -2px rgb(16 24 40 / 0.06);
+  --shadow-pop: 0 16px 40px -8px rgb(6 11 22 / 0.28),
+    0 4px 12px -4px rgb(6 11 22 / 0.16);
+
+  /* ---- motion ------------------------------------------------------------ */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===========================================================================
+   base
+   =========================================================================== */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-line);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  input,
+  textarea,
+  [contenteditable],
+  .selectable {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-line-strong);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-faint);
+    background-clip: content-box;
+  }
+
+  @media print {
+    body {
+      overflow: visible;
+      background: #fff;
+    }
+    .no-print {
+      display: none !important;
+    }
+    .print-only {
+      display: block !important;
+    }
+    .print-area {
+      position: static !important;
+      overflow: visible !important;
+      height: auto !important;
+      max-height: none !important;
+    }
+    @page {
+      margin: 12mm;
+    }
+  }
+}
+
+.print-only {
+  display: none;
+}
+
+/* ===========================================================================
+   ============ REGULAR CSS RULES (NO @apply for custom utilities) ============
+   =========================================================================== */
+
+:root {
+  --tbl-header-bg: #f7f9fc;
+  --tbl-row-even-bg: #fbfcfe;
+  --tbl-row-hover-bg: #f5f7f9;
+  --kbd-bg: #cfd6e3;
+  --kbd-border: #a0a8bd;
+}
+
+/* Tables */
+.table-wrap { overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.625rem; }
+.data-table thead th {
+  position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--color-line);
+  background: var(--tbl-header-bg); padding: 6px 7px 4px;
+  font-size: 0.5rem; font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--color-muted); white-space: nowrap;
+}
+.data-table tbody td { border-bottom: 1px solid #e3e8f0; padding: 5px 7px;
+  vertical-align: middle; color: var(--color-ink); }
+.data-table tbody tr { transition: background 0.1s; }
+.data-table tbody tr:nth-child(even) { background: var(--tbl-row-even-bg); }
+.data-table tbody tr:hover { background: var(--tbl-row-hover-bg); }
+.data-table tbody tr.row-selected { background: #eef4ff; }
+.data-table tfoot td {
+  border-top: 2px solid #cfd6e3; padding: 6px 7px 4px;
+  font-weight: 600; color: var(--color-ink); }
+
+/* Num alignment */
+.num { text-align: right; }
+
+/* Badges - use CSS variables instead of @apply */
+.badge { display: inline-flex; align-items: center; gap: 1;
+  padding: 2px 5px 1px 4px; border-radius: 9999px; border: 1px solid var(--color-line);
+  font-size: 0.625rem; font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; white-space: nowrap; }
+.badge-neutral { border-color: var(--color-line-strong);
+  background: var(--color-canvas); color: var(--color-muted); }
+.badge-brand { border-color: #bfd3fe; background: #eff8ff; color: #3b6bf6; }
+.badge-profit { border-color: #10b98130; background: #ecfdf5; color: #10b981; }
+.badge-danger { border-color: #ef444430; background: #fef2f2; color: #ef4444; }
+.badge-warn { border-color: #f59e0b30; background: #fffbeb; color: #f59e0b; }
+.badge-info { border-color: #0891b230; background: #ecfeff; color: #0891b2; }
+.badge-navy { border-color: #2a3c66; background: #0a1224; color: #e0e5ee; }
+
+/* Buttons - use CSS variables instead of @apply */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 5px 12px 4px; border-radius: 8px; font-size: 0.6875rem;
+  font-weight: 550; transition: all 0.15s; cursor: pointer; }
+.btn-primary { background: var(--color-brand-600); color: white;
+  box-shadow: 0 1px 2px 0 rgb(16 24 40 / 0.08); }
+.btn-primary:hover:not(:disabled) { background: var(--color-brand-700); }
+.btn-primary:active:not(:disabled) { background: var(--color-brand-800); }
+.btn-secondary { border: 1px solid var(--color-line);
+  background: var(--color-surface); color: var(--color-ink);
+  box-shadow: var(--shadow-card); }
+.btn-secondary:hover:not(:disabled) { border-color: #93b4fd; background: #eff8ff; }
+.btn-ghost { color: var(--color-muted); }
+.btn-ghost:hover:not(:disabled) { background: #f3f4f6; }
+.btn-profit { background: var(--color-profit-600); color: white;
+  box-shadow: 0 1px 2px 0 rgb(16 24 40 / 0.08); }
+.btn-profit:hover:not(:disabled) { background: var(--color-profit-700); }
+.btn-danger { background: var(--color-danger-600); color: white;
+  box-shadow: 0 1px 2px 0 rgb(16 24 40 / 0.08); }
+.btn-danger:hover:not(:disabled) { background: var(--color-danger-700); }
+.btn-danger-soft { border-color: #ef444430; background: #fef2f2; color: #ef4444; }
+.btn-warn-soft { border-color: #f59e0b30; background: #fffbeb; color: #f59e0b; }
+.btn-xs { padding: 2px 6px 1px; font-size: 0.5625rem; }
+.btn-sm { padding: 3px 8px 2px; font-size: 0.5625rem; }
+.btn-lg { padding: 8px 16px 6px; font-size: 0.75rem; }
+.btn-icon { width: 20px; height: 20px; padding: 0; }
+
+/* Inputs */
+/* NOTE: every control here shares `box-sizing: border-box` (Tailwind preflight),
+   so `height` is the WHOLE control, including padding and border. The content
+   box must stay >= line-height (16.5px for the 11px font) or Chromium clips the
+   painted value of <select> elements to zero and dropdown selections show blank.
+   34px = 17px content + 8+7px padding + 2px border. */
+.input { box-sizing: border-box; height: 34px; width: 100%; padding: 8px 16px 7px;
+  border-radius: 8px; border: 1px solid var(--color-line); background: var(--color-surface);
+  font-size: 0.6875rem; color: var(--color-ink); transition: border-color 0.15s; }
+.Input:hover:not(:disabled):not(:focus) { border-color: #6b7c9f; }
+.Input:focus { border-color: #3b6bf6; outline: none; }
+.Input:disabled { cursor: not-allowed; background: var(--color-canvas); color: var(--color-faint); }
+.Input-invalid { border-color: #dc2626; }
+.Input-invalid:focus { box-shadow: 0 0 0 2px #fecaca; }
+textarea.input { height: auto; padding: 12px; resize: vertical; }
+select.input {
+  appearance: none;
+  -webkit-appearance: none;
+  /* One custom chevron only: background-repeat defaults to `repeat`,
+     which tiled the SVG arrow across the whole control. */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7c9f'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1rem;
+  padding-right: 2rem;
+}
+
+/* Numeric inputs are fully controlled (validation, currency suffix, quantity
+   caps), so the browser-native spinner arrows are redundant. Hide them while
+   keeping the fields keyboard- and screen-reader-accessible. */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Groups */
+.Input-group { display: flex; align-items: center; gap: 8px; }
+.Input-group > .Input { padding-left: 32px; }
+.Input-group-icon { position: absolute; left: 12px; color: #8c98b4; }
+
+/* Divider */
+.divider { border-top: 1px solid var(--color-line); margin: 8px 0; }
+
+/* Link */
+.link { color: #3b6bf6; font-weight: 500; text-decoration: underline;
+  text-underline-offset: 2px; }
+
+/* KBD */
+.kbd { display: inline-flex; align-items: center; justify-content: center;
+  padding: 1px 4px 0; border-radius: 6px; border: 1px solid #a0a8bd;
+  background: #cfd6e3; font-size: 0.5625rem; font-family: ui-monospace, monospace;
+  color: #101828; }
+
+/* Skeleton */
+.skeleton { animation: pulse 1.5s ease-in-out infinite; background: #e8edf5;
+  border-radius: 4px; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+/* Scrollbar */
+.scroll-y { overflow-y: auto; }
